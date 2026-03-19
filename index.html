@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecDay - Liceo Lugano I</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f5f7fa;
+            color: #373c3f;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #5c8a9e 0%, #004068 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.3rem; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #5c8a9e;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #5c8a9e;
+            padding-bottom: 0.4rem;
+        }
+        .audio-card {
+            background: #f0f5f8;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #5c8a9e;
+        }
+        .audio-card.green { border-left-color: #009e61; background: #f0f8f4; }
+        .audio-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .audio-card p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
+        audio { width: 100%; }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .badge-mystery { background: #e8e8e8; color: #555; }
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .footer a { color: #5c8a9e; text-decoration: none; }
+        .links-list { list-style: none; }
+        .links-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .links-list li:last-child { border-bottom: none; }
+        .links-list a { color: #5c8a9e; text-decoration: none; font-weight: 500; }
+        .links-list a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Text & Music: How AI Generates Sequences</h1>
+    <p>TecDay &middot; Liceo Lugano I &middot; March 2026</p>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Can You Tell the Difference?</h2>
+        <p style="margin-bottom:1rem;">Listen to both pieces. One was composed by a human, the other by an AI. Which is which?</p>
+
+        <div class="audio-card">
+            <h3>Piece A <span class="badge badge-mystery">human / AI?</span></h3>
+            <p>Listen carefully and make your guess!</p>
+            <audio controls preload="metadata">
+                <source src="audio/nostalgia.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="audio-card green">
+            <h3>Piece B <span class="badge badge-mystery">human / AI?</span></h3>
+            <p>Compare with Piece A &mdash; can you hear the difference?</p>
+            <audio controls preload="metadata">
+                <source src="audio/nostalgia.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Try AI Music Yourself</h2>
+        <ul class="links-list">
+            <li><a href="https://suno.com" target="_blank">Suno &mdash; generate full songs from text prompts</a></li>
+            <li><a href="https://www.udio.com" target="_blank">Udio &mdash; AI music generation</a></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>About</h2>
+        <p>This presentation is part of <strong>TecDay</strong> at Liceo Lugano I, organized by the
+        <a href="https://www.usi.ch/en/education/bachelor/data-science" style="color:#5c8a9e;">USI Bachelor in Data Science</a>.</p>
+        <p style="margin-top:0.5rem;">Presenters: Ernst Wit, Martina Boschi, Melania Lembo, Francisco Richter</p>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 Universit&agrave; della Svizzera italiana &middot;
+    <a href="mailto:richtf@usi.ch">richtf@usi.ch</a></p>
+</div>
+
+</body>
+</html>
