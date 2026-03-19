@@ -59,6 +59,51 @@
             margin-left: 0.5rem;
         }
         .badge-mystery { background: #e8e8e8; color: #555; }
+        .vote-buttons { display: flex; gap: 0.8rem; margin-top: 0.8rem; }
+        .vote-btn {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .vote-btn:hover { transform: scale(1.03); }
+        .vote-btn.human { border-color: #5c8a9e; color: #5c8a9e; }
+        .vote-btn.ai { border-color: #9673A6; color: #9673A6; }
+        .vote-btn.human:hover { background: #5c8a9e; color: white; }
+        .vote-btn.ai:hover { background: #9673A6; color: white; }
+        .vote-btn.selected { color: white; transform: scale(1.03); }
+        .vote-btn.selected.human { background: #5c8a9e; }
+        .vote-btn.selected.ai { background: #9673A6; }
+        .vote-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+        .result-banner {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .result-banner.correct { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+        .result-banner.wrong { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
+        .result-banner.show { display: block; animation: fadeIn 0.5s; }
+        .reveal-detail {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .reveal-detail.show { display: block; animation: fadeIn 0.5s; }
+        .reveal-detail strong { color: #373c3f; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -89,24 +134,89 @@
         <h2>Can You Tell the Difference?</h2>
         <p style="margin-bottom:1rem;">Listen to both pieces. One was composed by a human, the other by an AI. Which is which?</p>
 
-        <div class="audio-card">
-            <h3>Piece A <span class="badge badge-mystery">human / AI?</span></h3>
+        <div class="audio-card" id="card-a">
+            <h3>Piece A <span class="badge badge-mystery" id="badge-a">human / AI?</span></h3>
             <p>Listen carefully and make your guess!</p>
             <audio controls preload="metadata">
                 <source src="audio/nostalgia.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+            <div class="vote-buttons">
+                <button class="vote-btn human" onclick="vote('a','human')">Human</button>
+                <button class="vote-btn ai" onclick="vote('a','ai')">AI</button>
+            </div>
         </div>
 
-        <div class="audio-card green">
-            <h3>Piece B <span class="badge badge-mystery">human / AI?</span></h3>
+        <div class="audio-card green" id="card-b">
+            <h3>Piece B <span class="badge badge-mystery" id="badge-b">human / AI?</span></h3>
             <p>Compare with Piece A &mdash; can you hear the difference?</p>
             <audio controls preload="metadata">
                 <source src="audio/haciendo.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+            <div class="vote-buttons">
+                <button class="vote-btn human" onclick="vote('b','human')">Human</button>
+                <button class="vote-btn ai" onclick="vote('b','ai')">AI</button>
+            </div>
         </div>
+
+        <div class="result-banner" id="result-banner"></div>
+        <div class="reveal-detail" id="reveal-detail"></div>
     </div>
+
+    <script>
+        const answers = { a: 'ai', b: 'human' };
+        const guesses = {};
+
+        function vote(piece, guess) {
+            guesses[piece] = guess;
+            // highlight selected button
+            const card = document.getElementById('card-' + piece);
+            card.querySelectorAll('.vote-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.disabled = true;
+            });
+            const sel = card.querySelector('.vote-btn.' + guess);
+            sel.classList.add('selected');
+            sel.disabled = false;
+
+            // update badge
+            const badge = document.getElementById('badge-' + piece);
+            badge.textContent = 'you said: ' + guess.toUpperCase();
+            badge.style.background = guess === 'ai' ? '#9673A6' : '#5c8a9e';
+            badge.style.color = 'white';
+
+            // check if both voted
+            if (guesses.a && guesses.b) {
+                setTimeout(reveal, 600);
+            }
+        }
+
+        function reveal() {
+            const correctA = guesses.a === answers.a;
+            const correctB = guesses.b === answers.b;
+            const score = (correctA ? 1 : 0) + (correctB ? 1 : 0);
+
+            const banner = document.getElementById('result-banner');
+            const detail = document.getElementById('reveal-detail');
+
+            if (score === 2) {
+                banner.className = 'result-banner correct show';
+                banner.innerHTML = 'You got both right! You can tell the difference.';
+            } else if (score === 1) {
+                banner.className = 'result-banner wrong show';
+                banner.innerHTML = 'You got 1 out of 2 &mdash; not bad!';
+            } else {
+                banner.className = 'result-banner wrong show';
+                banner.innerHTML = 'You got both wrong &mdash; the AI fooled you!';
+            }
+
+            detail.className = 'reveal-detail show';
+            detail.innerHTML =
+                '<strong>Piece A:</strong> <em>NostalgIA</em> &mdash; Bad Bunny, Justin Bieber, Daddy Yankee ft. FlowGPT &mdash; <strong style="color:#9673A6;">AI-generated</strong><br>' +
+                '<strong>Piece B:</strong> <em>Haciendo Que Me Amas</em> &mdash; Bad Bunny &mdash; <strong style="color:#5c8a9e;">Human-composed</strong>';
+        }
+    </script>
 
     <div class="section">
         <h2>Try AI Music Yourself</h2>
