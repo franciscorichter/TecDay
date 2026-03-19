@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TecDay - Liceo Lugano I</title>
+    <title>Turing Test Lab - TecDay</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -20,36 +20,95 @@
         }
         .header h1 { font-size: 2rem; margin-bottom: 0.3rem; }
         .header p { font-size: 1.1rem; opacity: 0.9; }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+        .header .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.75;
+            margin-top: 0.5rem;
+            font-style: italic;
         }
-        .section {
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-bottom: none;
+            background: #eee;
+            color: #888;
+            border-radius: 12px 12px 0 0;
+            transition: all 0.2s;
+        }
+        .tab:hover { background: #e0e0e0; }
+        .tab.active {
             background: white;
-            border-radius: 12px;
+            color: #5c8a9e;
+            border-color: #5c8a9e;
+        }
+        .tab-icon { font-size: 1.3rem; margin-right: 0.4rem; }
+
+        .tab-content {
+            display: none;
+            background: white;
+            border: 2px solid #5c8a9e;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
             padding: 1.8rem;
-            margin-bottom: 1.5rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-        .section h2 {
+        .tab-content.active { display: block; }
+
+        .tab-content h2 {
             color: #5c8a9e;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #5c8a9e;
-            padding-bottom: 0.4rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
         }
-        .audio-card {
+        .tab-content .intro {
+            margin-bottom: 1.2rem;
+            color: #555;
+        }
+
+        /* Cards */
+        .card {
             background: #f0f5f8;
             border-radius: 8px;
             padding: 1.2rem;
             margin-bottom: 1rem;
             border-left: 4px solid #5c8a9e;
         }
-        .audio-card.green { border-left-color: #009e61; background: #f0f8f4; }
-        .audio-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .audio-card p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
+        .card.green { border-left-color: #009e61; background: #f0f8f4; }
+        .card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
         audio { width: 100%; }
+
+        /* Text excerpts */
+        .text-excerpt {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1rem 1.2rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Badges */
         .badge {
             display: inline-block;
             padding: 0.2rem 0.6rem;
@@ -59,6 +118,8 @@
             margin-left: 0.5rem;
         }
         .badge-mystery { background: #e8e8e8; color: #555; }
+
+        /* Vote buttons */
         .vote-buttons { display: flex; gap: 0.8rem; margin-top: 0.8rem; }
         .vote-btn {
             flex: 1;
@@ -80,13 +141,15 @@
         .vote-btn.selected.human { background: #5c8a9e; }
         .vote-btn.selected.ai { background: #9673A6; }
         .vote-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+        /* Results */
         .result-banner {
             display: none;
             margin-top: 1.5rem;
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 8px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
         }
         .result-banner.correct { background: #d4edda; color: #155724; border: 2px solid #28a745; }
@@ -104,122 +167,229 @@
         .reveal-detail.show { display: block; animation: fadeIn 0.5s; }
         .reveal-detail strong { color: #373c3f; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .footer {
+
+        /* Score */
+        .total-score {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #5c8a9e 0%, #004068 100%);
+            color: white;
+            border-radius: 10px;
             text-align: center;
-            padding: 2rem 1rem;
-            color: #888;
-            font-size: 0.85rem;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
-        .footer a { color: #5c8a9e; text-decoration: none; }
-        .links-list { list-style: none; }
-        .links-list li {
-            padding: 0.6rem 0;
-            border-bottom: 1px solid #eee;
-        }
-        .links-list li:last-child { border-bottom: none; }
-        .links-list a { color: #5c8a9e; text-decoration: none; font-weight: 500; }
-        .links-list a:hover { text-decoration: underline; }
+        .total-score.show { display: block; animation: fadeIn 0.5s; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Text & Music: How AI Generates Sequences</h1>
-    <p>TecDay &middot; Liceo Lugano I &middot; March 2026</p>
+    <h1>The Turing Test Lab</h1>
+    <p>Can you tell human from machine?</p>
+    <div class="subtitle">TecDay &middot; Liceo Lugano I &middot; March 2026</div>
 </div>
 
 <div class="container">
 
-    <div class="section">
-        <h2>Can You Tell the Difference?</h2>
-        <p style="margin-bottom:1rem;">Listen to both pieces. One was composed by a human, the other by an AI. Which is which?</p>
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('music')">
+            <span class="tab-icon">&#127925;</span> Music
+        </div>
+        <div class="tab" onclick="switchTab('text')">
+            <span class="tab-icon">&#9997;</span> Text (Dante)
+        </div>
+    </div>
 
-        <div class="audio-card" id="card-a">
-            <h3>Piece A <span class="badge badge-mystery" id="badge-a">human / AI?</span></h3>
+    <!-- MUSIC TAB -->
+    <div class="tab-content active" id="tab-music">
+        <h2>Music Turing Test</h2>
+        <p class="intro">Listen to both pieces. One was composed by a human, the other by an AI. Which is which?</p>
+
+        <div class="card" id="music-card-a">
+            <h3>Piece A <span class="badge badge-mystery" id="music-badge-a">human / AI?</span></h3>
             <p>Listen carefully and make your guess!</p>
             <audio controls preload="metadata">
                 <source src="audio/nostalgia.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
             </audio>
             <div class="vote-buttons">
-                <button class="vote-btn human" onclick="vote('a','human')">Human</button>
-                <button class="vote-btn ai" onclick="vote('a','ai')">AI</button>
+                <button class="vote-btn human" onclick="vote('music','a','human')">Human</button>
+                <button class="vote-btn ai" onclick="vote('music','a','ai')">AI</button>
             </div>
         </div>
 
-        <div class="audio-card green" id="card-b">
-            <h3>Piece B <span class="badge badge-mystery" id="badge-b">human / AI?</span></h3>
+        <div class="card green" id="music-card-b">
+            <h3>Piece B <span class="badge badge-mystery" id="music-badge-b">human / AI?</span></h3>
             <p>Compare with Piece A &mdash; can you hear the difference?</p>
             <audio controls preload="metadata">
                 <source src="audio/haciendo.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
             </audio>
             <div class="vote-buttons">
-                <button class="vote-btn human" onclick="vote('b','human')">Human</button>
-                <button class="vote-btn ai" onclick="vote('b','ai')">AI</button>
+                <button class="vote-btn human" onclick="vote('music','b','human')">Human</button>
+                <button class="vote-btn ai" onclick="vote('music','b','ai')">AI</button>
             </div>
         </div>
 
-        <div class="result-banner" id="result-banner"></div>
-        <div class="reveal-detail" id="reveal-detail"></div>
+        <div class="result-banner" id="music-result"></div>
+        <div class="reveal-detail" id="music-reveal"></div>
     </div>
 
-    <script>
-        const answers = { a: 'ai', b: 'human' };
-        const guesses = {};
+    <!-- TEXT TAB -->
+    <div class="tab-content" id="tab-text">
+        <h2>Text Turing Test: Dante Edition</h2>
+        <p class="intro">Read both passages written in the style of Dante's <em>Divina Commedia</em>. One is by Dante himself, the other was generated by AI. Which is which?</p>
 
-        function vote(piece, guess) {
-            guesses[piece] = guess;
-            // highlight selected button
-            const card = document.getElementById('card-' + piece);
-            card.querySelectorAll('.vote-btn').forEach(btn => {
-                btn.classList.remove('selected');
-                btn.disabled = true;
-            });
-            const sel = card.querySelector('.vote-btn.' + guess);
-            sel.classList.add('selected');
-            sel.disabled = false;
+        <div class="card" id="text-card-a">
+            <h3>Passage A <span class="badge badge-mystery" id="text-badge-a">human / AI?</span></h3>
+            <div class="text-excerpt">
+                Per me si va ne la citt&agrave; dolente,<br>
+                per me si va ne l'etterno dolore,<br>
+                per me si va tra la perduta gente.<br><br>
+                Giustizia mosse il mio alto fattore;<br>
+                fecemi la divina podestate,<br>
+                la somma sapienza e 'l primo amore.<br><br>
+                Dinanzi a me non fuor cose create<br>
+                se non etterne, e io etterno duro.<br>
+                Lasciate ogne speranza, voi ch'intrate.
+            </div>
+            <div class="vote-buttons">
+                <button class="vote-btn human" onclick="vote('text','a','human')">Human (Dante)</button>
+                <button class="vote-btn ai" onclick="vote('text','a','ai')">AI</button>
+            </div>
+        </div>
 
-            // update badge
-            const badge = document.getElementById('badge-' + piece);
-            badge.textContent = 'you said: ' + guess.toUpperCase();
-            badge.style.background = guess === 'ai' ? '#9673A6' : '#5c8a9e';
-            badge.style.color = 'white';
+        <div class="card green" id="text-card-b">
+            <h3>Passage B <span class="badge badge-mystery" id="text-badge-b">human / AI?</span></h3>
+            <div class="text-excerpt">
+                Per me si va nel regno sconsolato,<br>
+                per me si va nell'ombra senza fine,<br>
+                per me si va nel popolo dannato.<br><br>
+                Potenza eterna volle il mio creato;<br>
+                mi fece l'alto ingegno ed il destino,<br>
+                la prima luce e l'ultimo peccato.<br><br>
+                Prima di me sol tenebre ed arcano,<br>
+                io sono eterno e il tempo mi &egrave; vano.<br>
+                Tremate, voi che entrate in questo piano.
+            </div>
+            <div class="vote-buttons">
+                <button class="vote-btn human" onclick="vote('text','a_text','human')">Human (Dante)</button>
+                <button class="vote-btn ai" onclick="vote('text','b','ai')">AI</button>
+            </div>
+        </div>
 
-            // check if both voted
-            if (guesses.a && guesses.b) {
-                setTimeout(reveal, 600);
-            }
-        }
+        <div class="result-banner" id="text-result"></div>
+        <div class="reveal-detail" id="text-reveal"></div>
+    </div>
 
-        function reveal() {
-            const correctA = guesses.a === answers.a;
-            const correctB = guesses.b === answers.b;
-            const score = (correctA ? 1 : 0) + (correctB ? 1 : 0);
-
-            const banner = document.getElementById('result-banner');
-            const detail = document.getElementById('reveal-detail');
-
-            if (score === 2) {
-                banner.className = 'result-banner correct show';
-                banner.innerHTML = 'You got both right! You can tell the difference.';
-            } else if (score === 1) {
-                banner.className = 'result-banner wrong show';
-                banner.innerHTML = 'You got 1 out of 2 &mdash; not bad!';
-            } else {
-                banner.className = 'result-banner wrong show';
-                banner.innerHTML = 'You got both wrong &mdash; the AI fooled you!';
-            }
-
-            detail.className = 'reveal-detail show';
-            detail.innerHTML =
-                '<strong>Piece A:</strong> <em>NostalgIA</em> &mdash; Bad Bunny, Justin Bieber, Daddy Yankee ft. FlowGPT &mdash; <strong style="color:#9673A6;">AI-generated</strong><br>' +
-                '<strong>Piece B:</strong> <em>Haciendo Que Me Amas</em> &mdash; Bad Bunny &mdash; <strong style="color:#5c8a9e;">Human-composed</strong>';
-        }
-    </script>
-
+    <!-- Total score -->
+    <div class="total-score" id="total-score"></div>
 
 </div>
+
+<script>
+    // Tab switching
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        document.querySelectorAll('.tab')[tab === 'music' ? 0 : 1].classList.add('active');
+    }
+
+    // Answers
+    const answers = {
+        music: { a: 'ai', b: 'human' },
+        text:  { a: 'human', b: 'ai' }
+    };
+
+    const reveals = {
+        music: {
+            a: '<strong>Piece A:</strong> <em>NostalgIA</em> &mdash; Bad Bunny, Justin Bieber, Daddy Yankee ft. FlowGPT &mdash; <strong style="color:#9673A6;">AI-generated</strong>',
+            b: '<strong>Piece B:</strong> <em>Haciendo Que Me Amas</em> &mdash; Bad Bunny &mdash; <strong style="color:#5c8a9e;">Human-composed</strong>'
+        },
+        text: {
+            a: '<strong>Passage A:</strong> <em>Inferno</em>, Canto III &mdash; Dante Alighieri (1320) &mdash; <strong style="color:#5c8a9e;">Human (Dante)</strong>',
+            b: '<strong>Passage B:</strong> Generated by AI in the style of Dante &mdash; <strong style="color:#9673A6;">AI-generated</strong>'
+        }
+    };
+
+    const guesses = { music: {}, text: {} };
+    let musicDone = false, textDone = false;
+
+    function vote(category, piece, guess) {
+        guesses[category][piece] = guess;
+
+        // Highlight selected button
+        const card = document.getElementById(category + '-card-' + piece);
+        card.querySelectorAll('.vote-btn').forEach(btn => {
+            btn.classList.remove('selected');
+            btn.disabled = true;
+        });
+        const sel = card.querySelector('.vote-btn.' + guess);
+        sel.classList.add('selected');
+        sel.disabled = false;
+
+        // Update badge
+        const badge = document.getElementById(category + '-badge-' + piece);
+        badge.textContent = 'you said: ' + guess.toUpperCase();
+        badge.style.background = guess === 'ai' ? '#9673A6' : '#5c8a9e';
+        badge.style.color = 'white';
+
+        // Check if both voted in this category
+        if (guesses[category].a && guesses[category].b) {
+            setTimeout(() => revealCategory(category), 600);
+        }
+    }
+
+    function revealCategory(category) {
+        const correctA = guesses[category].a === answers[category].a;
+        const correctB = guesses[category].b === answers[category].b;
+        const score = (correctA ? 1 : 0) + (correctB ? 1 : 0);
+
+        const banner = document.getElementById(category + '-result');
+        const detail = document.getElementById(category + '-reveal');
+
+        if (score === 2) {
+            banner.className = 'result-banner correct show';
+            banner.innerHTML = 'You got both right! You can tell the difference.';
+        } else if (score === 1) {
+            banner.className = 'result-banner wrong show';
+            banner.innerHTML = 'You got 1 out of 2 &mdash; not bad!';
+        } else {
+            banner.className = 'result-banner wrong show';
+            banner.innerHTML = 'You got both wrong &mdash; the AI fooled you!';
+        }
+
+        detail.className = 'reveal-detail show';
+        detail.innerHTML = reveals[category].a + '<br>' + reveals[category].b;
+
+        if (category === 'music') musicDone = true;
+        if (category === 'text') textDone = true;
+
+        if (musicDone && textDone) {
+            setTimeout(showTotalScore, 800);
+        }
+    }
+
+    function showTotalScore() {
+        let total = 0;
+        ['music', 'text'].forEach(cat => {
+            if (guesses[cat].a === answers[cat].a) total++;
+            if (guesses[cat].b === answers[cat].b) total++;
+        });
+
+        const el = document.getElementById('total-score');
+        el.className = 'total-score show';
+        if (total === 4) {
+            el.innerHTML = 'Final score: ' + total + '/4 &mdash; Perfect! You passed the Turing Test as a judge!';
+        } else if (total >= 2) {
+            el.innerHTML = 'Final score: ' + total + '/4 &mdash; Not bad, but AI is getting closer!';
+        } else {
+            el.innerHTML = 'Final score: ' + total + '/4 &mdash; The machines have fooled you!';
+        }
+    }
+</script>
 
 </body>
 </html>
