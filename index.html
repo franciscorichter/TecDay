@@ -31,106 +31,51 @@
             margin: 0 auto;
             padding: 1.5rem 1rem;
         }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 0;
-        }
+        .tabs { display: flex; gap: 0; margin-bottom: 0; }
         .tab {
-            flex: 1;
-            padding: 1rem;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 2px solid #ddd;
-            border-bottom: none;
-            background: #eee;
-            color: #888;
-            border-radius: 12px 12px 0 0;
-            transition: all 0.2s;
+            flex: 1; padding: 1rem; text-align: center;
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            border: 2px solid #ddd; border-bottom: none;
+            background: #eee; color: #888;
+            border-radius: 12px 12px 0 0; transition: all 0.2s;
         }
         .tab:hover { background: #e0e0e0; }
-        .tab.active {
-            background: white;
-            color: #5c8a9e;
-            border-color: #5c8a9e;
-        }
+        .tab.active { background: white; color: #5c8a9e; border-color: #5c8a9e; }
         .tab-icon { font-size: 1.3rem; margin-right: 0.4rem; }
-
         .tab-content {
-            display: none;
-            background: white;
-            border: 2px solid #5c8a9e;
-            border-top: none;
-            border-radius: 0 0 12px 12px;
-            padding: 1.8rem;
+            display: none; background: white;
+            border: 2px solid #5c8a9e; border-top: none;
+            border-radius: 0 0 12px 12px; padding: 1.8rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         .tab-content.active { display: block; }
-
-        .tab-content h2 {
-            color: #5c8a9e;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-        }
-        .tab-content .intro {
-            margin-bottom: 1.2rem;
-            color: #555;
-        }
-
-        /* Cards */
+        .tab-content h2 { color: #5c8a9e; font-size: 1.3rem; margin-bottom: 0.8rem; }
+        .tab-content .intro { margin-bottom: 1.2rem; color: #555; }
         .card {
-            background: #f0f5f8;
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #5c8a9e;
+            background: #f0f5f8; border-radius: 8px; padding: 1.2rem;
+            margin-bottom: 1rem; border-left: 4px solid #5c8a9e;
         }
         .card.green { border-left-color: #009e61; background: #f0f8f4; }
         .card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
         .card p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
         audio { width: 100%; }
-
-        /* Text excerpts */
         .text-excerpt {
-            background: #fafafa;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 1rem 1.2rem;
+            background: #fafafa; border: 1px solid #e0e0e0;
+            border-radius: 6px; padding: 1rem 1.2rem;
             font-family: 'Georgia', 'Times New Roman', serif;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #333;
-            font-style: italic;
-            margin-bottom: 0.8rem;
+            font-size: 1rem; line-height: 1.8; color: #333;
+            font-style: italic; margin-bottom: 0.8rem;
         }
-
-        /* Badges */
         .badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
+            display: inline-block; padding: 0.2rem 0.6rem;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;
         }
         .badge-mystery { background: #e8e8e8; color: #555; }
-
-        /* Vote buttons */
         .vote-buttons { display: flex; gap: 0.8rem; margin-top: 0.8rem; }
         .vote-btn {
-            flex: 1;
-            padding: 0.7rem 1rem;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            background: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            flex: 1; padding: 0.7rem 1rem; border: 2px solid #ccc;
+            border-radius: 8px; background: white; font-size: 1rem;
+            font-weight: 600; cursor: pointer; transition: all 0.2s;
         }
         .vote-btn:hover { transform: scale(1.03); }
         .vote-btn.human { border-color: #5c8a9e; color: #5c8a9e; }
@@ -141,46 +86,52 @@
         .vote-btn.selected.human { background: #5c8a9e; }
         .vote-btn.selected.ai { background: #9673A6; }
         .vote-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
-
-        /* Results */
         .result-banner {
-            display: none;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.05rem;
-            font-weight: 600;
+            display: none; margin-top: 1.5rem; padding: 1rem;
+            border-radius: 8px; text-align: center; font-size: 1.05rem; font-weight: 600;
         }
         .result-banner.correct { background: #d4edda; color: #155724; border: 2px solid #28a745; }
         .result-banner.wrong { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
         .result-banner.show { display: block; animation: fadeIn 0.5s; }
         .reveal-detail {
-            display: none;
-            margin-top: 0.8rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #555;
+            display: none; margin-top: 0.8rem; padding: 1rem;
+            background: #f8f9fa; border-radius: 8px; font-size: 0.9rem; color: #555;
         }
         .reveal-detail.show { display: block; animation: fadeIn 0.5s; }
         .reveal-detail strong { color: #373c3f; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Score */
         .total-score {
-            display: none;
-            margin-top: 1.5rem;
-            padding: 1.2rem;
+            display: none; margin-top: 1.5rem; padding: 1.2rem;
             background: linear-gradient(135deg, #5c8a9e 0%, #004068 100%);
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
+            color: white; border-radius: 10px; text-align: center;
+            font-size: 1.2rem; font-weight: 600;
         }
         .total-score.show { display: block; animation: fadeIn 0.5s; }
+
+        /* Live stats */
+        .live-stats {
+            margin-top: 1.5rem; padding: 1.2rem; background: white;
+            border: 2px solid #ddd; border-radius: 10px;
+        }
+        .live-stats h3 { color: #5c8a9e; margin-bottom: 0.8rem; font-size: 1.1rem; }
+        .stat-row {
+            display: flex; align-items: center; margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+        }
+        .stat-label { width: 140px; font-weight: 600; }
+        .stat-bar-bg {
+            flex: 1; height: 24px; background: #eee; border-radius: 12px;
+            overflow: hidden; position: relative;
+        }
+        .stat-bar {
+            height: 100%; border-radius: 12px; transition: width 0.5s ease;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 600; color: white; min-width: 30px;
+        }
+        .stat-bar.human-bar { background: #5c8a9e; }
+        .stat-bar.ai-bar { background: #9673A6; }
+        .stat-count { width: 50px; text-align: right; font-weight: 600; color: #888; margin-left: 0.5rem; }
+        .stat-total { text-align: center; color: #888; font-size: 0.85rem; margin-top: 0.5rem; }
     </style>
 </head>
 <body>
@@ -193,7 +144,6 @@
 
 <div class="container">
 
-    <!-- Tabs -->
     <div class="tabs">
         <div class="tab active" onclick="switchTab('music')">
             <span class="tab-icon">&#127925;</span> Music
@@ -274,7 +224,7 @@
                 Tremate, voi che entrate in questo piano.
             </div>
             <div class="vote-buttons">
-                <button class="vote-btn human" onclick="vote('text','a_text','human')">Human (Dante)</button>
+                <button class="vote-btn human" onclick="vote('text','b','human')">Human (Dante)</button>
                 <button class="vote-btn ai" onclick="vote('text','b','ai')">AI</button>
             </div>
         </div>
@@ -286,9 +236,38 @@
     <!-- Total score -->
     <div class="total-score" id="total-score"></div>
 
+    <!-- Live class stats (visible after voting) -->
+    <div class="live-stats" id="live-stats" style="display:none;">
+        <h3>&#128202; Class Results (live)</h3>
+        <div id="stats-content"></div>
+        <div class="stat-total" id="stats-total"></div>
+    </div>
+
 </div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
 <script>
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyA4UzXHpZsam5uG4CjkQAi0VfH8nE9hCq0",
+        authDomain: "tecday-7c49d.firebaseapp.com",
+        projectId: "tecday-7c49d",
+        storageBucket: "tecday-7c49d.firebasestorage.app",
+        messagingSenderId: "579365879866",
+        appId: "1:579365879866:web:e90ca06eb37fcff09c7503",
+        databaseURL: "https://tecday-7c49d-default-rtdb.europe-west1.firebasedatabase.app"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Generate unique voter ID
+    let odiv = localStorage.getItem('tecday-voter-id');
+    if (!odiv) { odiv = 'v_' + Math.random().toString(36).substr(2, 9); localStorage.setItem('tecday-voter-id', odiv); }
+
     // Tab switching
     function switchTab(tab) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -302,10 +281,9 @@
         music: { a: 'ai', b: 'human' },
         text:  { a: 'human', b: 'ai' }
     };
-
     const reveals = {
         music: {
-            a: '<strong>Piece A:</strong> <em>NostalgIA</em> &mdash; Bad Bunny, Justin Bieber, Daddy Yankee ft. FlowGPT &mdash; <strong style="color:#9673A6;">AI-generated</strong>',
+            a: '<strong>Piece A:</strong> <em>NostalgIA</em> &mdash; Bad Bunny ft. FlowGPT &mdash; <strong style="color:#9673A6;">AI-generated</strong>',
             b: '<strong>Piece B:</strong> <em>Haciendo Que Me Amas</em> &mdash; Bad Bunny &mdash; <strong style="color:#5c8a9e;">Human-composed</strong>'
         },
         text: {
@@ -320,7 +298,6 @@
     function vote(category, piece, guess) {
         guesses[category][piece] = guess;
 
-        // Highlight selected button
         const card = document.getElementById(category + '-card-' + piece);
         card.querySelectorAll('.vote-btn').forEach(btn => {
             btn.classList.remove('selected');
@@ -330,13 +307,14 @@
         sel.classList.add('selected');
         sel.disabled = false;
 
-        // Update badge
         const badge = document.getElementById(category + '-badge-' + piece);
         badge.textContent = 'you said: ' + guess.toUpperCase();
         badge.style.background = guess === 'ai' ? '#9673A6' : '#5c8a9e';
         badge.style.color = 'white';
 
-        // Check if both voted in this category
+        // Save to Firebase
+        db.ref('votes/' + odiv + '/' + category + '_' + piece).set(guess);
+
         if (guesses[category].a && guesses[category].b) {
             setTimeout(() => revealCategory(category), 600);
         }
@@ -388,7 +366,68 @@
         } else {
             el.innerHTML = 'Final score: ' + total + '/4 &mdash; The machines have fooled you!';
         }
+
+        // Show live stats
+        document.getElementById('live-stats').style.display = 'block';
     }
+
+    // Listen for live stats
+    db.ref('votes').on('value', snap => {
+        const data = snap.val();
+        if (!data) return;
+
+        const counts = {
+            music_a: { human: 0, ai: 0 },
+            music_b: { human: 0, ai: 0 },
+            text_a:  { human: 0, ai: 0 },
+            text_b:  { human: 0, ai: 0 }
+        };
+        let totalVoters = 0;
+
+        Object.values(data).forEach(voter => {
+            totalVoters++;
+            Object.entries(voter).forEach(([key, val]) => {
+                if (counts[key]) counts[key][val]++;
+            });
+        });
+
+        const labels = {
+            music_a: 'Music &mdash; Piece A',
+            music_b: 'Music &mdash; Piece B',
+            text_a:  'Text &mdash; Passage A',
+            text_b:  'Text &mdash; Passage B'
+        };
+
+        let html = '';
+        Object.entries(counts).forEach(([key, c]) => {
+            const total = c.human + c.ai;
+            if (total === 0) return;
+            const hPct = Math.round((c.human / total) * 100);
+            const aPct = 100 - hPct;
+            html += `
+                <div class="stat-row">
+                    <div class="stat-label">${labels[key]}</div>
+                    <div class="stat-bar-bg">
+                        <div style="display:flex; width:100%; height:100%;">
+                            <div class="stat-bar human-bar" style="width:${hPct}%">${hPct > 10 ? hPct + '%' : ''}</div>
+                            <div class="stat-bar ai-bar" style="width:${aPct}%">${aPct > 10 ? aPct + '%' : ''}</div>
+                        </div>
+                    </div>
+                    <div class="stat-count">${total}</div>
+                </div>`;
+        });
+
+        document.getElementById('stats-content').innerHTML = html ||
+            '<p style="color:#888; text-align:center;">Waiting for votes...</p>';
+        document.getElementById('stats-total').innerHTML =
+            totalVoters + ' participant' + (totalVoters !== 1 ? 's' : '') +
+            ' &mdash; <span style="color:#5c8a9e;">&#9632; Human</span> &nbsp; <span style="color:#9673A6;">&#9632; AI</span>';
+
+        // Also show stats if already done
+        if (musicDone && textDone) {
+            document.getElementById('live-stats').style.display = 'block';
+        }
+    });
 </script>
 
 </body>
